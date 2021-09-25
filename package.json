@@ -1,0 +1,13 @@
+{
+  "name": "foundryvtt-roman-numerals",
+  "version": "1.0.0",
+  "description": "Converts numbers in FoundryVTT into roman numerals",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "seashairo",
+  "license": "MIT",
+  "dependencies": {}
+}

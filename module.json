@@ -1,0 +1,11 @@
+{
+  "name": "foundryvtt-roman-numerals",
+  "title": "FoundryVTT Roman Numerals",
+  "description": "Converts numbers in FoundryVTT into roman numerals",
+  "author": "seashairo",
+  "version": "1.0.0",
+  "minimumCoreVersion": "0.8.8",
+  "scripts": [
+    "index.js"
+  ]
+}
