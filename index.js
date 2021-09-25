@@ -36,7 +36,7 @@ function romanize(decimal) {
 
 Hooks.on('renderChatMessage', (message, html, data) => {
     const classesToReplace = [
-        'span', 'div', 'time', 'h4', 'li', '.dice-formula'
+        'span', 'div', 'time', 'h4', 'li', '.dice-formula', '.part-formula', '.part-total'
     ]
 
     classesToReplace.forEach(cls => {
