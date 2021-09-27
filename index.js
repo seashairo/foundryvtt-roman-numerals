@@ -34,6 +34,24 @@ function romanize(decimal) {
     return output
 }
 
+function deromanize (input) {
+    const roman = input.toUpperCase()
+    const romanPattern = /^M*(?:D?C{0,3}|C[MD])(?:L?X{0,3}|X[CL])(?:V?I{0,3}|I[XV])$/
+    const token = /[MDLV]|C[MD]?|X[CL]?|I[XV]?/g
+
+    if (!romanPattern.test(roman)) {
+        return false
+    }
+
+    let decimal = 0
+    let m
+    while (m = token.exec(roman)) {
+        decimal += roman_map[m[0]]
+    }
+
+    return decimal;
+}
+
 Hooks.on('renderChatMessage', (message, html, data) => {
     const classesToReplace = [
         'span', 'div', 'time', 'h4', 'li', '.dice-formula', '.part-formula', '.part-total'
@@ -79,21 +97,44 @@ Hooks.on('renderActorSheet', (message, html, data) => {
 
     const inputs = html.find('input')
     inputs.each(i => {
-        const input = $(inputs[i])
+        if(i !== 6) {
+            // return
+        }
 
-        const placeholder = input.attr('placeholder')
-        if(placeholder) {
-            input.attr('placeholder', placeholder.replaceAll(/[0-9]+/g, (input) => {
+        const input = inputs[i]
+        const inputElement = $(input)
+
+        if(inputElement.attr('placeholder')) {
+            inputElement.attr('placeholder', inputElement.attr('placeholder').replaceAll(/[0-9]+/g, (input) => {
                 return romanize(input)
             }))
         }
 
-        input.focus(el => {
+        const ttype = inputElement.attr('type')
+        if(ttype === 'checkbox') {
+            return
+        }
 
+        const clonedElement = inputElement.clone()
+        clonedElement.removeAttr('name')
+        clonedElement.removeAttr('data-dtype')
+        clonedElement.attr('type', 'text')
+        clonedElement.val(romanize(inputElement.val()))
+
+        inputElement.hide()
+
+        clonedElement.focus(ev => {
+            inputElement.show()
+            clonedElement.hide()
+            inputElement.focus()
         })
 
-        input.blur(el => {
-            console.log(el)
+        inputElement.blur(() => {
+            inputElement.hide()
+            clonedElement.show()
+            clonedElement.val(romanize(inputElement.val()))
         })
+
+        inputElement.after(clonedElement)
     })
 })

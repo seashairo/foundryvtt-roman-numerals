@@ -4,6 +4,8 @@
 
 Automatically converts a bunch of numbers in Foundry to roman numerals. Currently does anything in the chat log, and most stuff on character sheets.
 
+May break a bunch of character sheet functionality, I didn't really test it much
+
 ## Why?
 
 Someone joked about it and now they have to live with their mistakes.
